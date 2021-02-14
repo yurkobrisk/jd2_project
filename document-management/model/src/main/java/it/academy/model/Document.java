@@ -24,11 +24,13 @@ public class Document {
     @Column(name = "D_ID")
     private String documentId;
 
-    @Column(name = "D_CUSTOMER")
-    private Person customer;
+    @OneToOne
+    @JoinColumn(name = "C_ID")
+    private Customer customer;
 
-    @Column(name = "D_EXECUTOR")
-    private Person executor;
+    @OneToOne
+    @JoinColumn(name = "E_ID")
+    private Executor executor;
 
     @Column(name = "S_START_DATE")
     private Date startDate;
@@ -36,16 +38,17 @@ public class Document {
     @Column(name = "D_END_DATE")
     private Date endDate;
 
-    @Column(name = "D_AUTOR")
-    private User autor;
+    @OneToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
 
     @Column(name = "D_CREATE_DATE")
     private Date createDate;
 
-    @Column(name = "D_STATUS")
+    @Enumerated(EnumType.STRING)
     private Status status;
 
-    @Column(name = "D_TYPE")
+    @Enumerated(EnumType.STRING)
     private Type type;
 
     @Column(name = "D_FILE_NAME")

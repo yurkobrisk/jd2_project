@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -26,6 +27,9 @@ public class User {
 
     @Column(name = "USER_TYPE")
     private UserType userType;
+
+    @OneToMany(mappedBy = "user")
+    List<Document> documents;
 
 }
 
