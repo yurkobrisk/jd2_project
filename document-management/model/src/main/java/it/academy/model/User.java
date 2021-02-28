@@ -10,12 +10,12 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "T_USER")
+@Table(name = "T_USER_DOCUMENT")
 public class User {
 
     @Id
     @GeneratedValue(generator = "uuid-generator")
-    @GenericGenerator(name = "uuid-generator", strategy = "uuid")
+    @GenericGenerator(name = "uuid-generator", strategy = "uuid2")
     @Column(name = "USER_ID")
     private String userId;
 
@@ -29,7 +29,7 @@ public class User {
     private UserType userType;
 
     @OneToMany(mappedBy = "user")
-    List<Document> documents;
+    private List<Document> userDocuments;
 
 }
 

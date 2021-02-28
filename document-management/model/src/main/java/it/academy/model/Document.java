@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.io.File;
 import java.util.Date;
 
 // Объект "Документ" из себя представляет описание документа - можно добавить
@@ -20,47 +19,39 @@ public class Document {
 
     @Id
     @GeneratedValue(generator = "uuid-generator")
-    @GenericGenerator(name = "uuid-generator", strategy = "uuid")
+    @GenericGenerator(name = "uuid-generator", strategy = "uuid2")
     @Column(name = "D_ID")
     private String documentId;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "C_ID")
-    private Customer customer;
+    private ClientDocument clientDocument;
 
-    @OneToOne
-    @JoinColumn(name = "E_ID")
-    private Executor executor;
+    @ManyToOne
+    @JoinColumn(name = "P_ID")
+    private ProviderDocument providerDocument;
 
-    @Column(name = "S_START_DATE")
-    private Date startDate;
+    @Column(name = "CREATION_DATE")
+    private Date creationDate;
 
-    @Column(name = "D_END_DATE")
-    private Date endDate;
+    @Column(name = "COMPLETION_DATE")
+    private Date completionDate;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    @Column(name = "D_CREATE_DATE")
-    private Date createDate;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "DOCUMENT_STATUS")
+    private DocumentStatus documentStatus;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    @Column(name = "DOCUMENT_TYPE")
+    private DocumentType documentType;
 
-    @Enumerated(EnumType.STRING)
-    private Type type;
-
-    @Column(name = "D_FILE_NAME")
-    private File fileName;
+    @OneToOne
+    @JoinColumn(name = "FILE_ID")
+    private FileDocument fileDocument;
 
 }
 
-
-enum Status {
-    NEW, EXECUTION, COMPLETED;
-}
-
-enum Type {
-    SCAN, TEXT, IMAGE, VIDEO, PHOTO, AUDIO, BIO
-}

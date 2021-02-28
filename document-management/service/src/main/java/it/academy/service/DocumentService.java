@@ -1,10 +1,10 @@
-package it.academy.dao;
+package it.academy.service;
 
 import it.academy.model.Document;
 
 import java.util.List;
 
-public interface DocumentDao {
+public interface DocumentService {
 
     List<Document> readAllDocuments();
 

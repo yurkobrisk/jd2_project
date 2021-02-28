@@ -35,30 +35,29 @@ public class Main {
         address2.setStreet("Pushkina 14");
         address2.setIndex(310083);
 
-        Person person1 = new Person();
-        person1.setName("Ivan");
-        person1.setSurname("Ivanov");
-        person1.setPassportNumber("MP1477724");
-        person1.setAddress(address1);
+        ClientDocument clientDocument = new ClientDocument();
+        clientDocument.setClientName("Ivan");
+        clientDocument.setClientSurname("Ivanov");
+        clientDocument.setClientPassportNumber("MP1477724");
+        clientDocument.setClientAddress(address1);
 
-        Person person2 = new Person();
-        person2.setName("Sidor");
-        person2.setSurname("Sidirov");
-        person2.setPassportNumber("MP22344891");
-        person2.setAddress(address2);
-
-        Executor executor = new Executor();
-        executor.setPerson(person1);
-
-        Customer customer = new Customer();
-        customer.setPerson(person2);
+        ProviderDocument providerDocument = new ProviderDocument();
+        providerDocument.setProviderName("Sidor");
+        providerDocument.setProviderSurname("Sidirov");
+        providerDocument.setProviderPassportNumber("MP22344891");
+        providerDocument.setProviderAddress(address2);
 
         Document document = new Document();
-        document.setCustomer(customer);
-        document.setExecutor(executor);
-        document.setCreateDate(Date.valueOf("2021-02-14"));
-        document.setStartDate(Date.valueOf("2021-02-21"));
-        document.setEndDate(Date.valueOf("2022-02-22"));
+        document.setClientDocument(clientDocument);
+        document.setProviderDocument(providerDocument);
+        document.setCreationDate(Date.valueOf("2021-02-14"));
+        document.setCompletionDate(Date.valueOf("2021-02-21"));
+        document.setDocumentStatus(DocumentStatus.NEW);
+
+        User user = new User();
+        user.setUserName("yurko");
+        user.setPassword("pass");
+        document.setUser(user);
 
 
         Session session = sessionFactory.openSession();
@@ -67,11 +66,10 @@ public class Main {
             tx = session.beginTransaction();
             session.save(address1);
             session.save(address2);
-            session.save(person1);
-            session.save(person2);
-            session.save(executor);
-            session.save(customer);
+            session.save(providerDocument);
+            session.save(clientDocument);
             session.save(document);
+            session.save(user);
             tx.commit();
         } catch (Exception e){
             if (tx != null) tx.rollback();

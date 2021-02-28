@@ -13,11 +13,10 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <mapping class="it.academy.model.Address"/>
-        <mapping class="it.academy.model.Customer"/>
+        <mapping class="it.academy.model.ClientDocument"/>
         <mapping class="it.academy.model.Document"/>
-        <mapping class="it.academy.model.Executor"/>
-        <mapping class="it.academy.model.Person"/>
+        <mapping class="it.academy.model.ProviderDocument"/>
         <mapping class="it.academy.model.User"/>
-
+        <mapping class="it.academy.model.FileDocument"/>
     </session-factory>
 </hibernate-configuration>
