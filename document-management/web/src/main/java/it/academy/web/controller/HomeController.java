@@ -16,11 +16,11 @@ public class HomeController {
     private static final Logger log = Logger.getLogger(HomeController.class.getName());
 
     @Autowired
-    @Qualifier("documentServiceImpl")
+//    @Qualifier("documentServiceImpl")
     private DocumentService documentService;
 
-    @GetMapping("/")
-    public String home(Model model){
+    @GetMapping("/index/")
+    public String index(Model model){
         log.info("before for....");
         model.addAttribute("documentList", documentService.readAllDocuments());
         log.info("after for....");
@@ -30,5 +30,12 @@ public class HomeController {
         log.info("done....");
 
         return "index";
+    }
+
+    @GetMapping("/")
+    public String home(){
+        log.info("before for....");
+
+        return "document";
     }
 }

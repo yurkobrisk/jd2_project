@@ -1,50 +1,45 @@
 package it.academy.service;
 
-import it.academy.dao.DocumentDao;
 import it.academy.model.Document;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import it.academy.repository.DocumentRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Setter
-@Getter
-@ToString
-@Service("documentServiceImpl")
-@Transactional
+@Service
 public class DocumentServiceImpl implements DocumentService {
 
+    private static final Logger log =
+            LoggerFactory.getLogger(DocumentServiceImpl.class);
+
     @Autowired
-    @Qualifier("documentDaoImpl")
-    private DocumentDao documentDao;
+    private DocumentRepository documentRepository;
 
     @Override
     public List<Document> readAllDocuments() {
-        return documentDao.readAllDocuments();
+        return documentRepository.findAll();
     }
 
     @Override
     public Document readDocument(String id) {
-        return documentDao.readDocument(id);
+        return documentRepository.getOne(id);
     }
 
     @Override
-    public String saveDocument(Document document) {
-        return documentDao.saveDocument(document);
+    public Document saveDocument(Document document) {
+        return documentRepository.saveAndFlush(document);
     }
 
     @Override
-    public String updateDocument(Document document) {
-        return documentDao.updateDocument(document);
+    public Document updateDocument(Document document) {
+        return documentRepository.saveAndFlush(document);
     }
 
     @Override
     public void deleteDocument(String id) {
-        documentDao.deleteDocument(id);
+        documentRepository.deleteById(id);
     }
 }

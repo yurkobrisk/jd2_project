@@ -1,5 +1,6 @@
 package it.academy.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -7,9 +8,9 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.List;
 
+@Entity
 @Data
 @NoArgsConstructor
-@Entity
 @Table(name = "T_PROVIDER_DOCUMENT")
 public class ProviderDocument {
 

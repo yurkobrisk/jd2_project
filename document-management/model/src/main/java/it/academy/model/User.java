@@ -1,5 +1,7 @@
 package it.academy.model;
 
+import it.academy.model.enums.UserType;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -7,9 +9,9 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.List;
 
+@Entity
 @Data
 @NoArgsConstructor
-@Entity
 @Table(name = "T_USER_DOCUMENT")
 public class User {
 
@@ -31,9 +33,5 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Document> userDocuments;
 
-}
-
-enum UserType {
-    USER, ADMINISTRATOR
 }
 

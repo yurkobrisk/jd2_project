@@ -10,9 +10,9 @@ public interface DocumentService {
 
     Document readDocument(String id);
 
-    String saveDocument(Document document);
+    Document saveDocument(Document document);
 
-    String updateDocument(Document document);
+    Document updateDocument(Document document);
 
     void deleteDocument(String id);
 }

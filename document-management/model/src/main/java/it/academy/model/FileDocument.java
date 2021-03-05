@@ -7,9 +7,9 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.File;
 
+@Entity
 @Data
 @NoArgsConstructor
-@Entity
 @Table(name = "T_FILE_DOCUMENT")
 public class FileDocument {
 

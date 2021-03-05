@@ -1,6 +1,7 @@
 package it.academy;
 
 import it.academy.model.*;
+import it.academy.model.enums.DocumentStatus;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
