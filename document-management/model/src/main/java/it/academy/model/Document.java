@@ -6,6 +6,7 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 // Объект "Документ" из себя представляет описание документа - можно добавить
@@ -18,7 +19,7 @@ import java.util.Date;
 @ToString
 @NoArgsConstructor
 @Table(name = "T_DOCUMENT")
-public class Document {
+public class Document implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid-generator")
@@ -26,22 +27,22 @@ public class Document {
     @Column(name = "D_ID", nullable = false)
     private String documentId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "C_ID", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "C_ID")
     private ClientDocument clientDocument;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "P_ID", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "P_ID")
     private ProviderDocument providerDocument;
 
     @Column(name = "CREATION_DATE")
-    private Date creationDate;
+    private String creationDate;
 
     @Column(name = "COMPLETION_DATE")
-    private Date completionDate;
+    private String completionDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "USER_ID")
     private User user;
 
     @Enumerated(EnumType.STRING)

@@ -3,15 +3,13 @@ package it.academy.web;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-//@EnableSpringDataWebSupport
-@ComponentScan(basePackages = "it.academy")
+@ComponentScan(basePackages = "it.academy.web")
 public class WebDocumentConfiguration implements WebMvcConfigurer {
 
     @Bean

@@ -1,17 +1,18 @@
 package it.academy.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-@Data
+@Setter
+@Getter
+@ToString
 @NoArgsConstructor
 @Table(name = "T_ADDRESS")
-public class Address {
+public class Address implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid-generator")
@@ -29,6 +30,6 @@ public class Address {
     private String street;
 
     @Column(name = "A_INDEX")
-    private int index;
+    private String index;
 
 }

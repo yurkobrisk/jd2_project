@@ -26,26 +26,4 @@ public class WebDocumentInitializer extends
                 "/"
         };
     }
-
-
-//        ServletContainerInitializer {
-//
-//    @Override
-//    public void onStartup(Set<Class<?>> c, ServletContext ctx) throws ServletException {
-//
-//        AnnotationConfigWebApplicationContext rootContext =
-//                new AnnotationConfigWebApplicationContext();
-//        rootContext.register(WebDocumentConfiguration.class);
-//
-//        ctx.addListener(new ContextLoaderListener(rootContext));
-//
-//        DispatcherServlet servlet =
-//                new DispatcherServlet(rootContext);
-//
-//        final ServletRegistration.Dynamic dispatcher =
-//                ctx.addServlet("dispatcher", servlet);
-//        dispatcher.setLoadOnStartup(1);
-//        dispatcher.addMapping("/");
-
-//    }
 }

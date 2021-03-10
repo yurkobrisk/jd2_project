@@ -28,13 +28,13 @@ public class Main {
         address1.setCountry("Belarus");
         address1.setCity("Minsk");
         address1.setStreet("Skarina 166");
-        address1.setIndex(220010);
+        address1.setIndex("220010");
 
         Address address2 = new Address();
         address2.setCountry("Belarus");
         address2.setCity("Grodno");
         address2.setStreet("Pushkina 14");
-        address2.setIndex(310083);
+        address2.setIndex("310083");
 
         ClientDocument clientDocument = new ClientDocument();
         clientDocument.setClientName("Ivan");
@@ -51,8 +51,8 @@ public class Main {
         Document document = new Document();
         document.setClientDocument(clientDocument);
         document.setProviderDocument(providerDocument);
-        document.setCreationDate(Date.valueOf("2021-02-14"));
-        document.setCompletionDate(Date.valueOf("2021-02-21"));
+        document.setCreationDate(("2021-02-14"));
+        document.setCompletionDate(("2021-02-21"));
         document.setDocumentStatus(DocumentStatus.NEW);
 
         User user = new User();

@@ -1,18 +1,19 @@
 package it.academy.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Data
+@Setter
+@Getter
+@ToString
 @NoArgsConstructor
 @Table(name = "T_PROVIDER_DOCUMENT")
-public class ProviderDocument {
+public class ProviderDocument implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid-generator")
@@ -29,7 +30,7 @@ public class ProviderDocument {
     @Column(name = "P_PASSPORTNUM")
     private String providerPassportNumber;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "A_ID")
     private Address providerAddress;
 

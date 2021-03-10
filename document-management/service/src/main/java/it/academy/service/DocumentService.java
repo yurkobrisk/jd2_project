@@ -1,5 +1,7 @@
 package it.academy.service;
 
+import it.academy.dto.DocumentDto;
+import it.academy.dto.DocumentInfoDto;
 import it.academy.model.Document;
 
 import java.util.List;
@@ -15,4 +17,7 @@ public interface DocumentService {
     Document updateDocument(Document document);
 
     void deleteDocument(String id);
+
+    Document saveDocumentDto(DocumentDto documentDto);
+
 }

@@ -1,6 +1,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!doctype html>
-<html lang="en">
-    <h1>Please take a look on our promo!</h1>
+<jsp:include page="header.jsp"/>
 
-</html>
+<body>
+<div class="container-sm" >
+
+<br>
+
+<h1>Document Details:</h1>
+<table class="table">
+    <tr>
+        <td>${document.documentId}<td>
+    </tr>
+    <tr>
+        <td>${document.creationDate}<td>
+    </tr>
+    <tr>
+        <td>${document.completionDate}<td>
+    </tr>
+</table>
+
+</div>
+<jsp:include page="footer.jsp"/>

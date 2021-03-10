@@ -1,17 +1,19 @@
 package it.academy.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.File;
+import java.io.Serializable;
 
 @Entity
-@Data
+@Setter
+@Getter
+@ToString
 @NoArgsConstructor
 @Table(name = "T_FILE_DOCUMENT")
-public class FileDocument {
+public class FileDocument implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid-generator")
