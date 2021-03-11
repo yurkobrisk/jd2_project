@@ -44,7 +44,7 @@ public class DataConfiguration {
 
     @Bean
     public DataSource dataSource(){
-        final BasicDataSource dataSource = new BasicDataSource();
+        final XBasicDataSource dataSource = new XBasicDataSource();
         dataSource.setUrl(env.getProperty(DATASOURCE_URL));
         dataSource.setUsername(env.getProperty(DATASOURCE_USERNAME));
         dataSource.setPassword(env.getProperty(DATASOURCE_PASSWORD));
