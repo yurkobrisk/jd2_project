@@ -3,6 +3,8 @@ package it.academy.dto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 public class ProviderDocumentDto {
@@ -16,5 +18,7 @@ public class ProviderDocumentDto {
     private String providerPassportNumber;
 
     private AddressDto providerAddress;
+
+    private List<DocumentDto> providerDocuments;
     
 }

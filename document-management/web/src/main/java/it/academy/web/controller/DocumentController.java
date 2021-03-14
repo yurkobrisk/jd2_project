@@ -17,23 +17,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class DocumentController {
 
-    public static final Logger log =
+    public static final Logger logger =
             LoggerFactory.getLogger(DocumentController.class.getName());
-
-    @Autowired
-    DocumentService documentService;
+//
+//    @Autowired
+//    DocumentService documentService;
 
     @Autowired
     MapDocumentService mapDocumentService;
 
-    @GetMapping("/document/{id}")
-    public String getDocument(
-            @PathVariable(name = "id") String id,
-            Model model
-    ){
-        model.addAttribute("document", documentService.readDocument(id));
-        return "document";
-    }
+//    @GetMapping("/document/{id}")
+//    public String getDocument(
+//            @PathVariable(name = "id") String id,
+//            Model model
+//    ){
+//        model.addAttribute("document", documentService.readDocument(id));
+//        return "document";
+//    }
 
     @GetMapping("/document/add/")
     public String addDocument(Model model){
@@ -43,11 +43,25 @@ public class DocumentController {
 
     @PostMapping("/document/add/")
     public String addDocument(
-            @ModelAttribute(name = "documentDto") DtoToDocument dtoToDocument
+            @ModelAttribute("documentDto") DtoToDocument dtoToDocument
     ){
-        mapDocumentService.saveDocument(dtoToDocument);
-        return "redirect:/document/all/";
+            mapDocumentService.saveDocument(dtoToDocument);
+    return "redirect:/document/all/";
     }
+
+//    @GetMapping("/document/check/")
+//    public String checkDocument(
+//            @ModelAttribute("documentDto") DtoToDocument dtoToDocument
+//    ){
+//        return "check-document";
+//    }
+
+//    @PostMapping("/document/check/")
+//    public String checkDocument(
+//            @ModelAttribute("documentDto") DtoToDocument dtoToDocument
+//    ){
+//        return "check-document";
+//    }
 
     @GetMapping("/document/all/")
     public String allDocuments(Model model){

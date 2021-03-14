@@ -3,9 +3,11 @@ package it.academy.dto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @NoArgsConstructor
-public class AddressDto {
+public class AddressDto implements Serializable {
 
     private String addresId;
 

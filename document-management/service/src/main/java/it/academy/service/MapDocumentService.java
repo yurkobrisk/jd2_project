@@ -2,9 +2,12 @@ package it.academy.service;
 
 import it.academy.dto.DocumentDto;
 import it.academy.dto.DtoToDocument;
+import it.academy.mapper.DocumentMap;
+import it.academy.mapper.Mapper;
 import it.academy.model.Document;
 import it.academy.repository.DocumentRepository;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,36 +24,39 @@ public class MapDocumentService {
     private DocumentRepository documentRepository;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private Mapper modelMapper;
+
+    @Autowired
+    private DocumentMap documentMap;
 
     public List<DocumentDto> getAllDocuments(){
         return ((List<Document>) documentRepository
                 .findAll())
                 .stream()
-                .map(this::convertToDocumentDto)
+                .map(this::convertDocumentToDto)
                 .collect(Collectors.toList());
     }
 
     public Document saveDocument(DtoToDocument dtoToDocument){
         return documentRepository
-                .saveAndFlush(convertToDocument(dtoToDocument));
+                .save(convertDtoToDocument(dtoToDocument));
     }
 
-    private DocumentDto convertToDocumentDto(Document document) {
+    private DocumentDto convertDocumentToDto(Document document) {
         modelMapper.getConfiguration()
                 .setMatchingStrategy(MatchingStrategies.LOOSE);
         DocumentDto documentDto = modelMapper
                 .map(document, DocumentDto.class);
         return documentDto;
     }
-//TODO метод сохранения данных из формы в базу
 
-    private Document convertToDocument(DtoToDocument dtoToDocument){
-        modelMapper.getConfiguration()
-                .setMatchingStrategy(MatchingStrategies.STANDARD);
-        Document document = modelMapper
-                .map(dtoToDocument, Document.class);
-        return document;
+    private Document convertDtoToDocument(DtoToDocument dtoToDocument){
+//        modelMapper = new Mapper();
+        TypeMap<DtoToDocument, Document> typeMap =
+                modelMapper.getTypeMap(DtoToDocument.class, Document.class);
+        if (typeMap == null) {
+            modelMapper.addMappings(documentMap);
+        }
+        return modelMapper.map(dtoToDocument, Document.class);
     }
-
 }
