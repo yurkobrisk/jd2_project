@@ -1,12 +1,10 @@
 package it.academy.service;
 
 import it.academy.dto.DocumentDto;
-import it.academy.dto.DtoToDocument;
 import it.academy.mapper.DocumentMap;
 import it.academy.mapper.Mapper;
 import it.academy.model.Document;
 import it.academy.repository.DocumentRepository;
-import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +35,17 @@ public class MapDocumentService {
                 .collect(Collectors.toList());
     }
 
-    public Document saveDocument(DtoToDocument dtoToDocument){
+    public Document saveDocument(DocumentDto documentDto){
         return documentRepository
-                .save(convertDtoToDocument(dtoToDocument));
+                .saveAndFlush(convertDtoToDocument(documentDto));
+    }
+
+    public DocumentDto getDocument(String id) {
+        return convertDocumentToDto(documentRepository.getOne(id));
+    }
+
+    public void deleteDocument(String id) {
+        documentRepository.deleteById(id);
     }
 
     private DocumentDto convertDocumentToDto(Document document) {
@@ -50,13 +56,13 @@ public class MapDocumentService {
         return documentDto;
     }
 
-    private Document convertDtoToDocument(DtoToDocument dtoToDocument){
+    private Document convertDtoToDocument(DocumentDto documentDto){
 //        modelMapper = new Mapper();
-        TypeMap<DtoToDocument, Document> typeMap =
-                modelMapper.getTypeMap(DtoToDocument.class, Document.class);
+        TypeMap<DocumentDto, Document> typeMap =
+                modelMapper.getTypeMap(DocumentDto.class, Document.class);
         if (typeMap == null) {
             modelMapper.addMappings(documentMap);
         }
-        return modelMapper.map(dtoToDocument, Document.class);
+        return modelMapper.map(documentDto, Document.class);
     }
 }

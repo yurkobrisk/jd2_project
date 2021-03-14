@@ -17,16 +17,32 @@
         <th scope="col">Client surname</th>
         <th scope="col">Provider surname</th>
         <th scope="col">Completion date</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
-      <c:forEach items="${documentsList}" var="documentItem">
+      <c:forEach var="documentItem" items="${documentsList}">
+
+        <c:url var="updateButton" value="/document/update/">
+          <c:param name="docId" value="${documentItem.documentId}"/>
+        </c:url>
+
+        <c:url var="deleteButton" value="/document/delete/">
+          <c:param name="docId" value="${documentItem.documentId}"/>
+        </c:url>
+
         <tr>
           <th scope="row">1</th>
           <td>${documentItem.creationDate}</td>
           <td>${documentItem.clientSurname}</td>
           <td>${documentItem.providerSurname}</td>
           <td>${documentItem.completionDate}</td>
+          <td>
+            <input type="button" value="Update"  class="btn btn-outline-primary"
+            onClick = "window.location.href = '${updateButton}'"/>
+            <input type="button" value="Delete"  class="btn btn-outline-primary"
+            onClick = "window.location.href = '${deleteButton}'"/>
+          </td>
         </tr>
       </c:forEach>
     </tbody>
@@ -61,6 +77,9 @@
   </div>
 </div>
 </sec:authorize>
+
+<br>
+<br>
 
 </div>
 

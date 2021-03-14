@@ -1,18 +1,13 @@
 package it.academy.web.controller;
 
 import it.academy.dto.DocumentDto;
-import it.academy.dto.DtoToDocument;
-import it.academy.service.DocumentService;
 import it.academy.service.MapDocumentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class DocumentController {
@@ -37,24 +32,33 @@ public class DocumentController {
 
     @GetMapping("/document/add/")
     public String addDocument(Model model){
-        model.addAttribute("documentDto", new DtoToDocument());
+        model.addAttribute("documentDto", new DocumentDto());
         return "add-document";
     }
 
     @PostMapping("/document/add/")
     public String addDocument(
-            @ModelAttribute("documentDto") DtoToDocument dtoToDocument
+            @ModelAttribute("documentDto") DocumentDto documentDto
     ){
-            mapDocumentService.saveDocument(dtoToDocument);
-    return "redirect:/document/all/";
+        mapDocumentService.saveDocument(documentDto);
+        return "redirect:/document/all/";
     }
 
-//    @GetMapping("/document/check/")
-//    public String checkDocument(
-//            @ModelAttribute("documentDto") DtoToDocument dtoToDocument
-//    ){
-//        return "check-document";
-//    }
+    @GetMapping("/document/update/")
+    public String updateDocument(
+            @RequestParam("docId") String id,
+            Model model
+    ){
+        DocumentDto documentDto = mapDocumentService.getDocument(id);
+        model.addAttribute("documentDto", documentDto);
+        return "add-document";
+    }
+
+    @GetMapping("/document/delete/")
+    public String deleteDocument(@RequestParam("docId") String id){
+        mapDocumentService.deleteDocument(id);
+        return "redirect:/document/all/";
+    }
 
 //    @PostMapping("/document/check/")
 //    public String checkDocument(
