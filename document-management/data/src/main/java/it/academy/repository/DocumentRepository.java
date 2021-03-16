@@ -15,4 +15,7 @@ public interface DocumentRepository extends JpaRepository<Document, String> {
 
     Page<Document> findAll(Pageable pageable);
 
+    @Query("select d from Document d where name like %?1%")
+    List<Document> findByName(String name);
+
 }

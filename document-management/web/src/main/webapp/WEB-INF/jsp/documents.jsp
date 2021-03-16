@@ -6,6 +6,61 @@
 <div class="container-sm" >
 
 <h1 class="pagination justify-content-center">Documents in database:</h1>
+<br>
+<br>
+
+<!--        Sorting row with labels 12 columns       -->
+
+<div class="row">
+  <div class="col-md-7">
+  </div>
+  <div class="col-md-2">
+    <h6>Documents per page:</h6>
+  </div>
+  <div class="col-md-1">
+
+<!--        Sorting Dropdown Buttons       -->
+
+    <div class="dropdown">
+      <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          ${documentsList.size}
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <c:forEach var="documentsPerPage" items="${count}">
+          <li class="page-item">
+            <li><a class="dropdown-item" href="?size=${documentsPerPage}">${documentsPerPage}</a></li>
+          </li>
+        </c:forEach>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-1">
+    <h6>Sort by:</h6>
+  </div>
+  <div class="col-md-1">
+
+ <!--        Sorting by ...       -->
+
+   <div class="dropdown">
+      <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          Creation date
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li class="page-item">
+            <c:forEach var="documentsSortBy" items="${sortParam}">
+                    <li class="page-item">
+                      <li><a class="dropdown-item" href="?sort=${documentsSortBy}">${documentsSortBy}</a></li>
+                    </li>
+            </c:forEach>
+          </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<br>
 
 <!--        Table       -->
 
@@ -64,7 +119,7 @@
 
     <c:forEach var="pageNumber" items="${numbers}">
       <li class="page-item">
-        <a class="page-link" href="?page=${pageNumber}">${pageNumber + 1}</a>
+        <a class="page-link" href="?page=${pageNumber}&size=${documentsList.size}&sort=${documentsList.sort}">${pageNumber + 1}</a>
       </li>
     </c:forEach>
 
