@@ -1,34 +1,31 @@
 package it.academy.web.controller;
 
 import it.academy.dto.DocumentDto;
+import it.academy.model.Document;
+import it.academy.repository.DocumentRepository;
 import it.academy.service.MapDocumentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.stream.IntStream;
 
 @Controller
 public class DocumentController {
 
     public static final Logger logger =
             LoggerFactory.getLogger(DocumentController.class.getName());
-//
-//    @Autowired
-//    DocumentService documentService;
+
+    @Autowired
+    DocumentRepository documentRepository;
 
     @Autowired
     MapDocumentService mapDocumentService;
-
-//    @GetMapping("/document/{id}")
-//    public String getDocument(
-//            @PathVariable(name = "id") String id,
-//            Model model
-//    ){
-//        model.addAttribute("document", documentService.readDocument(id));
-//        return "document";
-//    }
 
     @GetMapping("/document/add/")
     public String addDocument(Model model){
@@ -60,17 +57,21 @@ public class DocumentController {
         return "redirect:/document/all/";
     }
 
-//    @PostMapping("/document/check/")
-//    public String checkDocument(
-//            @ModelAttribute("documentDto") DtoToDocument dtoToDocument
-//    ){
-//        return "check-document";
-//    }
-
     @GetMapping("/document/all/")
     public String allDocuments(Model model){
         model.addAttribute("documentsList", mapDocumentService.getAllDocuments());
         return "documents";
     }
 
+    @GetMapping("/pagination/")
+    public String listDocuments(
+            Model model,
+//            @RequestParam(value = "size", required = false, defaultValue = "0") Integer size,
+            @RequestParam(value = "page", required = false, defaultValue = "0") Integer page
+    ){
+        Page<Document> pageDocuments = documentRepository.findAll(PageRequest.of(page, 5));
+        model.addAttribute("documentsList", pageDocuments);
+        model.addAttribute("numbers", IntStream.range(0, pageDocuments.getTotalPages()).toArray());
+        return "all-documents";
+    }
 }

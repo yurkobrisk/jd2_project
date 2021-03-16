@@ -53,9 +53,9 @@ public class Document implements Serializable {
     @Column(name = "DOCUMENT_TYPE")
     private DocumentType documentType;
 
-    @OneToOne
-    @JoinColumn(name = "FILE_ID")
-    private FileDocument fileDocument;
+//    @OneToOne
+//    @JoinColumn(name = "FILE_ID")
+//    private FileDocument fileDocument;
 
 }
 

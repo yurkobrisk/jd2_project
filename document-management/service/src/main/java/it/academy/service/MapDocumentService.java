@@ -8,6 +8,9 @@ import it.academy.repository.DocumentRepository;
 import org.modelmapper.TypeMap;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,4 +68,12 @@ public class MapDocumentService {
         }
         return modelMapper.map(documentDto, Document.class);
     }
+
+//    public Page<DocumentDto> findAll(Pageable pageable) {
+//        return ((Page<Document>) documentRepository
+//                .findAll(pageable)
+//                .stream()
+//                .map(this::convertDocumentToDto)
+//                .collect();
+//    }
 }

@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.io.File;
 import java.io.Serializable;
 
-@Entity
+//@Entity
 @Setter
 @Getter
 @ToString
