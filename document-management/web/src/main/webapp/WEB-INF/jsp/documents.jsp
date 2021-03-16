@@ -21,7 +21,7 @@
       </tr>
     </thead>
     <tbody>
-      <c:forEach var="documentItem" items="${documentsList}">
+      <c:forEach var="documentItem" items="${documentsList.content}">
 
         <c:url var="updateButton" value="/document/update/">
           <c:param name="docId" value="${documentItem.documentId}"/>
@@ -51,15 +51,23 @@
 <!--        Pagination       -->
 
 <nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-center">
+  <ul class="pagination justify-content-center"
+        c:if = "${documentsList.totalPages > 0}">
+
     <li class="page-item">
       <a class="page-link" href="#" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
+
+    <!--        Page Numbers       -->
+
+    <c:forEach var="pageNumber" items="${numbers}">
+      <li class="page-item">
+        <a class="page-link" href="?page=${pageNumber}">${pageNumber + 1}</a>
+      </li>
+    </c:forEach>
+
     <li class="page-item">
       <a class="page-link" href="#" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
@@ -69,6 +77,7 @@
 </nav>
 
 <!--        Add button       -->
+
 <sec:authorize url="/document/add/">
 <div class="position-relative" >
   <div class="position-absolute bottom-0 end-0" >

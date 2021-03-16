@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.stream.IntStream;
 
 @Controller
@@ -20,9 +21,6 @@ public class DocumentController {
 
     public static final Logger logger =
             LoggerFactory.getLogger(DocumentController.class.getName());
-
-    @Autowired
-    DocumentRepository documentRepository;
 
     @Autowired
     MapDocumentService mapDocumentService;
@@ -57,21 +55,21 @@ public class DocumentController {
         return "redirect:/document/all/";
     }
 
-    @GetMapping("/document/all/")
-    public String allDocuments(Model model){
-        model.addAttribute("documentsList", mapDocumentService.getAllDocuments());
-        return "documents";
-    }
+//    @GetMapping("/document/all/")
+//    public String allDocuments(Model model){
+//        model.addAttribute("documentsList", mapDocumentService.getAllDocuments());
+//        return "documents";
+//    }
 
-    @GetMapping("/pagination/")
+    @GetMapping("/document/all/")
     public String listDocuments(
             Model model,
 //            @RequestParam(value = "size", required = false, defaultValue = "0") Integer size,
             @RequestParam(value = "page", required = false, defaultValue = "0") Integer page
     ){
-        Page<Document> pageDocuments = documentRepository.findAll(PageRequest.of(page, 5));
-        model.addAttribute("documentsList", pageDocuments);
-        model.addAttribute("numbers", IntStream.range(0, pageDocuments.getTotalPages()).toArray());
-        return "all-documents";
+        Page<DocumentDto> pageDsto = mapDocumentService.findAll(PageRequest.of(page, 5));
+        model.addAttribute("documentsList", pageDsto);
+        model.addAttribute("numbers", IntStream.range(0, pageDsto.getTotalPages()).toArray());
+        return "documents";
     }
 }

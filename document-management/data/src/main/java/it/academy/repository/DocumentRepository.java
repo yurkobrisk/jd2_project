@@ -15,7 +15,4 @@ public interface DocumentRepository extends JpaRepository<Document, String> {
 
     Page<Document> findAll(Pageable pageable);
 
-    @Override
-    List<Document> findAll(Sort sort);
-
 }
