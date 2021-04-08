@@ -6,8 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -54,29 +52,26 @@ public class DocumentController {
         return "redirect:/document/all/";
     }
 
-//    @GetMapping("/document/all/")
-//    public String allDocuments(Model model){
-//        model.addAttribute("documentsList", mapDocumentService.getAllDocuments());
-//        return "documents";
-//    }
-
     @GetMapping("/document/all/")
     public String listDocuments(
             Model model,
             @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
             @RequestParam(value = "size", required = false, defaultValue = "5") Integer size,
-            @RequestParam(value = "sort", required = false, defaultValue = "creationDate") String sort
+            @RequestParam(value = "orderBy", required = false, defaultValue = "Creation Date") String orderBy
     ){
+//        Page<DocumentDto> pageDtos = mapDocumentService
+//                .findAll(PageRequest.of(page, size, Sort.by(orderBy)));
+        System.out.println("Текущая страница: " + page + ", количество записей на странице: " + size);
         Page<DocumentDto> pageDtos = mapDocumentService
-                .findAll(PageRequest.of(page, size, Sort.Direction.ASC, sort));
+                .findAll(page, size, "ASC", orderBy);
         model.addAttribute("documentsList", pageDtos);
         model.addAttribute("numbers", IntStream.range(0, pageDtos.getTotalPages()).toArray());
         model.addAttribute("count", IntStream.of(5, 10, 20, 100).toArray());
-        model.addAttribute("sortParam",
-                Stream.of("creationDate"
-                , "completionDate"
-                , "clientSurname"
-                , "providerSurname").toArray());
+        model.addAttribute("orderByParam",
+                Stream.of("Creation Date", "Client Surname", "Provider Surname", "Completion Date").toArray());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("currentSize", size);
+        model.addAttribute("currentOrderBy", orderBy);
         return "documents";
     }
 }

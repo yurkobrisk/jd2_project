@@ -27,11 +27,11 @@ public class Document implements Serializable {
     @Column(name = "D_ID", nullable = false)
     private String documentId;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "C_ID")
     private ClientDocument clientDocument;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "P_ID")
     private ProviderDocument providerDocument;
 

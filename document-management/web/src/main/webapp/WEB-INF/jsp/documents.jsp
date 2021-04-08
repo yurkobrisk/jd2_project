@@ -9,52 +9,68 @@
 <br>
 <br>
 
-<!--        Sorting row with labels 12 columns       -->
+<!--        Ordering row with labels 12 columns       -->
 
 <div class="row">
-  <div class="col-md-7">
+  <div class="col-md-6" align="left">
+    <h6>Total documents: ${documentsList.totalElements} - Page ${documentsList.number + 1} of ${documentsList.totalPages}</h6>
   </div>
-  <div class="col-md-2">
-    <h6>Documents per page:</h6>
-  </div>
-  <div class="col-md-1">
 
-<!--        Sorting Dropdown Buttons       -->
+<!--        Ordering Dropdown Button - Documents Per Page       -->
+
+  <div class="col-md-2" align="right">
+    <h6>Documents per page</h6>
+  </div>
+
+  <div class="col-md-1" align="left">
+
+    <c:set var="pageNumber" value="${documentsList.number}"/>
+    <c:if test="${currentPage + 1 >= documentsList.totalPages}">
+      <c:set var="pageNumber" value="0"/>
+    </c:if>
 
     <div class="dropdown">
-      <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1"
+      <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1"
           data-bs-toggle="dropdown" aria-expanded="false">
           ${documentsList.size}
       </button>
+
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
         <c:forEach var="documentsPerPage" items="${count}">
           <li class="page-item">
-            <li><a class="dropdown-item" href="?size=${documentsPerPage}">${documentsPerPage}</a></li>
+            <li><a class="dropdown-item"
+                   href="?page=${pageNumber}&size=${documentsPerPage}&orderBy=${currentOrderBy}">${documentsPerPage}</a></li>
           </li>
         </c:forEach>
       </ul>
     </div>
   </div>
-  <div class="col-md-1">
-    <h6>Sort by:</h6>
+
+ <!--        Ordering by ...       -->
+
+  <div class="col-md-1" align="right">
+    <h6>Order by</h6>
   </div>
-  <div class="col-md-1">
 
- <!--        Sorting by ...       -->
-
+  <div class="col-md-1" align="left">
    <div class="dropdown">
-      <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1"
-          data-bs-toggle="dropdown" aria-expanded="false">
-          Creation date
+      <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton2"
+        data-bs-toggle="dropdown" aria-expanded="false">
+        ${currentOrderBy}
       </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li class="page-item">
-            <c:forEach var="documentsSortBy" items="${sortParam}">
-                    <li class="page-item">
-                      <li><a class="dropdown-item" href="?sort=${documentsSortBy}">${documentsSortBy}</a></li>
-                    </li>
-            </c:forEach>
-          </li>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+        <li class="page-item">
+          <c:forEach var="documentsOrderBy" items="${orderByParam}">
+            <li class="page-item">
+              <li>
+                <a class="dropdown-item"
+                  href="?page=${documentsList.number}&size=${documentsList.size}&orderBy=${documentsOrderBy}">
+                  ${documentsOrderBy}
+                </a>
+              </li>
+            </li>
+          </c:forEach>
+        </li>
       </ul>
     </div>
   </div>
@@ -68,14 +84,15 @@
   <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Creation date</th>
-        <th scope="col">Client surname</th>
-        <th scope="col">Provider surname</th>
-        <th scope="col">Completion date</th>
+        <th scope="col">Creation Date</th>
+        <th scope="col">Client Surname</th>
+        <th scope="col">Provider Surname</th>
+        <th scope="col">Completion Date</th>
         <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
+      <c:set var="counter" value="${(currentPage * currentSize)}"/>
       <c:forEach var="documentItem" items="${documentsList.content}">
 
         <c:url var="updateButton" value="/document/update/">
@@ -87,7 +104,7 @@
         </c:url>
 
         <tr>
-          <th scope="row">1</th>
+          <th scope="row">${counter = counter + 1}</th>
           <td>${documentItem.creationDate}</td>
           <td>${documentItem.clientSurname}</td>
           <td>${documentItem.providerSurname}</td>
@@ -109,24 +126,40 @@
   <ul class="pagination justify-content-center"
         c:if = "${documentsList.totalPages > 0}">
 
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
+    <!--      Previous page       -->
+    <c:if test = "${currentPage > 0}">
+      <a class="page-link"
+        href="?page=${currentPage - 1}&size=${documentsList.size}&orderBy=${currentOrderBy}" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
+    </c:if>
+    <li class="page-item">
     </li>
 
     <!--        Page Numbers       -->
-
     <c:forEach var="pageNumber" items="${numbers}">
       <li class="page-item">
-        <a class="page-link" href="?page=${pageNumber}&size=${documentsList.size}&sort=${documentsList.sort}">${pageNumber + 1}</a>
+        <c:if test="${pageNumber == currentPage}">
+          <li class="page-item active" aria-current="page">
+            <a class="page-link">${pageNumber + 1}</a>
+          </li>
+        </c:if>
+
+        <c:if test="${pageNumber != currentPage}">
+          <a class="page-link"
+             href="?page=${pageNumber}&size=${documentsList.size}&orderBy=${currentOrderBy}">${pageNumber + 1}</a>
+        </c:if>
       </li>
     </c:forEach>
 
+    <!--      Next page       -->
     <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
+      <c:if test = "${currentPage < documentsList.totalPages - 1}">
+      <a class="page-link"
+        href="?page=${currentPage + 1}&size=${documentsList.size}&orderBy=${currentOrderBy}" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
+      </c:if>
     </li>
   </ul>
 </nav>

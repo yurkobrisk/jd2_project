@@ -8,9 +8,7 @@ import it.academy.repository.DocumentRepository;
 import org.modelmapper.TypeMap;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -70,8 +68,28 @@ public class MapDocumentService {
         return modelMapper.map(documentDto, Document.class);
     }
 
-    public Page<DocumentDto> findAll(Pageable pageable){
-        return mapDocumentsPage(documentRepository.findAll(pageable));
+    public Page<DocumentDto> findAll(Integer page, Integer size, String direction, String orderBy){
+
+        List<Document> documentList = null;
+        switch (orderBy) {
+            case "Creation Date":
+                orderBy = "creationDate";
+                break;
+            case "Client Surname":
+                orderBy = "clientDocument.clientSurname";
+                break;
+            case "Provider Surname":
+                orderBy = "providerDocument.providerSurname";
+                break;
+            default:
+                orderBy = "completionDate";
+                break;
+        }
+
+        PageRequest pageRequest =
+                PageRequest.of(page, size, Sort.Direction.valueOf(direction), orderBy);
+
+        return mapDocumentsPage(documentRepository.findAll(pageRequest));
     }
 
     private List<DocumentDto> mapDocuments(Collection<Document> documents){
@@ -105,12 +123,4 @@ public class MapDocumentService {
         }
         return documentDtos.map(this::convertDtoToDocument);
     }
-
-//    public Page<DocumentDto> findAll(Pageable pageable) {
-//        return ((Page<Document>) documentRepository
-//                .findAll(pageable))
-//                .stream()
-//                .map(this::convertDocumentToDto)
-//                .;
-//    }
 }

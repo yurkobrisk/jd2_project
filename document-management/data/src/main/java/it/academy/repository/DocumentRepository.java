@@ -13,9 +13,10 @@ import java.util.List;
 @Repository
 public interface DocumentRepository extends JpaRepository<Document, String> {
 
-    Page<Document> findAll(Pageable pageable);
-
-    @Query("select d from Document d where name like %?1%")
-    List<Document> findByName(String name);
+//    @Query("FROM Document ORDER BY clientDocument.clientSurname")
+//    List<Document> findAllOrderByClientSurname();
+//
+//    @Query("FROM Document ORDER BY providerDocument.providerSurname")
+//    List<Document> findAllOrderByProviderSurname();
 
 }
