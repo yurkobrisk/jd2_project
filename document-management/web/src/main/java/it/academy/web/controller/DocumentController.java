@@ -68,7 +68,12 @@ public class DocumentController {
         model.addAttribute("numbers", IntStream.range(0, pageDtos.getTotalPages()).toArray());
         model.addAttribute("count", IntStream.of(5, 10, 20, 100).toArray());
         model.addAttribute("orderByParam",
-                Stream.of("Creation Date", "Client Surname", "Provider Surname", "Completion Date").toArray());
+                Stream.of("Creation Date",
+                        "Client Surname  A-Z",
+                        "Client Surname  Z-A",
+                        "Provider Surname  A-Z",
+                        "Provider Surname  Z-A",
+                        "Completion Date").toArray());
         model.addAttribute("currentPage", page);
         model.addAttribute("currentSize", size);
         model.addAttribute("currentOrderBy", orderBy);

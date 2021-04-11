@@ -75,11 +75,21 @@ public class MapDocumentService {
             case "Creation Date":
                 orderBy = "creationDate";
                 break;
-            case "Client Surname":
+            case "Client Surname  A-Z":
                 orderBy = "clientDocument.clientSurname";
+                direction = "ASC";
                 break;
-            case "Provider Surname":
+            case "Client Surname  Z-A":
+                orderBy = "clientDocument.clientSurname";
+                direction = "DESC";
+                break;
+            case "Provider Surname  A-Z":
                 orderBy = "providerDocument.providerSurname";
+                direction = "ASC";
+                break;
+            case "Provider Surname  Z-A":
+                orderBy = "providerDocument.providerSurname";
+                direction = "DESC";
                 break;
             default:
                 orderBy = "completionDate";
