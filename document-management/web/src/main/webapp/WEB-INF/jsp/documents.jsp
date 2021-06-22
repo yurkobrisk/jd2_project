@@ -95,6 +95,10 @@
       <c:set var="counter" value="${(currentPage * currentSize)}"/>
       <c:forEach var="documentItem" items="${documentsList.content}">
 
+        <c:url var="viewButton" value="/document/view/">
+          <c:param name="docId" value="${documentItem.documentId}"/>
+        </c:url>
+
         <c:url var="updateButton" value="/document/update/">
           <c:param name="docId" value="${documentItem.documentId}"/>
         </c:url>
@@ -110,6 +114,8 @@
           <td>${documentItem.providerSurname}</td>
           <td>${documentItem.completionDate}</td>
           <td>
+            <input type="button" value="View"  class="btn btn-outline-primary"
+            onClick = "window.location.href = '${viewButton}'"/>
             <input type="button" value="Update"  class="btn btn-outline-primary"
             onClick = "window.location.href = '${updateButton}'"/>
             <input type="button" value="Delete"  class="btn btn-outline-primary"

@@ -79,4 +79,20 @@ public class DocumentController {
         model.addAttribute("currentOrderBy", orderBy);
         return "documents";
     }
+
+    @GetMapping("/document/view/")
+    public String viewDocument(
+            @RequestParam("docId") String id,
+            Model model){
+        DocumentDto documentDto = mapDocumentService.getDocument(id);
+        model.addAttribute("documentDto", documentDto);
+        return "view-document";
+    }
+
+    @PostMapping("/document/view/")
+    public String viewDocument(
+            @ModelAttribute("documentDto") DocumentDto documentDto
+    ){
+        return "redirect:/document/add/";
+    }
 }
