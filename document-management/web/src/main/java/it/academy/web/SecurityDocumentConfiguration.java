@@ -21,28 +21,13 @@ public class SecurityDocumentConfiguration extends WebSecurityConfigurerAdapter 
         UserBuilder userBuilder = User.withDefaultPasswordEncoder();
 
         auth.jdbcAuthentication().dataSource(dataSource);
-
-//        auth.inMemoryAuthentication()
-//                .withUser(userBuilder
-//                        .username("yury")
-//                        .password("yury")
-//                        .roles("MANAGER"))
-//                .withUser(userBuilder
-//                        .username("user")
-//                        .password("user")
-//                        .roles("VIEWER"))
-//                .withUser(userBuilder
-//                        .username("admin")
-//                        .password("admin")
-//                        .roles("ADMIN"));
-
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/").hasAnyRole("MANAGER", "VIEWER", "ADMIN")
+//                .antMatchers("/").hasAnyRole("MANAGER", "VIEWER", "ADMIN")
                 .antMatchers("/document/all/").hasAnyRole("MANAGER", "VIEWER", "ADMIN")
                 .antMatchers("/document/add/").hasAnyRole("MANAGER", "ADMIN")
                 .and().formLogin().permitAll();

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"></head>
+<body>
+    <div class="container" id="mainDiv">
+        <div class="container-sm" >
+            <h1>Documents in database:</h1>
+
+            <!--        Ordering row with - labels 12 columns       -->
+            <div class="row">
+                <div class="col-md-6" align="left">
+                    <h6 th:text="'Total documents: ' + ${documentsList.totalElements} + ' - Page ' + ${documentsList.number + 1} + ' of ' + ${documentsList.totalPages}"></h6>
+                </div>
+
+                <!--        Dropdown Button - Documents Per Page       -->
+                <div class="col-md-2" align="right">
+                    <h6>Documents per page</h6>
+                </div>
+
+                <div class="col-md-1" align="left">
+                    <div class="dropdown" th:with="pageNumber=${documentsList.number}">
+                        <button th:text="${documentsList.size}" class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li th:each="documentsPerPage : ${count}">
+                                <a th:text="${documentsPerPage}" class="dropdown-item"
+                                   th:href="'?page=' + ${pageNumber} + '&size=' + ${documentsPerPage} + '&orderBy=' + ${currentOrderBy}">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!--        Ordering by ...       -->
+                <div class="col-md-1" align="right">
+                    <h6>Order by</h6>
+                </div>
+
+                <div class="col-md-1" align="left">
+                    <div class="dropdown">
+                        <button th:text="${currentOrderBy}" class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton2"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                            <li th:each="orderBy : ${orderByParam}">
+                                <a th:text="${orderBy}" class="dropdown-item"
+                                   th:href="'?page=' + ${currentPage} + '&size=' + ${currentSize} + '&orderBy=' + ${orderBy}">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!--        Table       -->
+            <table class="table table-hover table-sm">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Creation Date</th>
+                    <th scope="col">Client Surname</th>
+                    <th scope="col">Provider Surname</th>
+                    <th scope="col">Completion Date</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="document, iter : ${documentsList}" th:with="counter=${currentPage}*${currentSize}">
+                        <td th:text="${counter} + ${iter.count}"></td>
+                        <td th:text="${document.creationDate}"></td>
+                        <td th:text="${document.clientSurname}"></td>
+                        <td th:text="${document.providerSurname}"></td>
+                        <td th:text="${document.completionDate}"></td>
+                        <td th:with="docId=${document.documentId}">
+                            <a th:href="'/web/document/update/?docId=' + ${docId} + '&view=true'">
+                                <input type="button" value="View"  class="btn btn-outline-primary"/></a>
+                            <a th:href="'/web/document/update/?docId=' + ${docId} + '&view=false'">
+                                <input type="button" value="Update"  class="btn btn-outline-primary"/></a>
+                            <a th:href="'/web/document/delete/?docId=' + ${docId}">
+                                <input type="button" value="Delete"  class="btn btn-outline-primary"/></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!--        Pagination       -->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+
+                    <!--      Previous page       -->
+                    <li class="page-item">
+                        <a class="page-link"
+                           th:if="${currentPage} > 0"
+                           th:href="'?page=' + ${currentPage - 1} + '&size=' + ${documentsList.size} + '&orderBy=' + ${currentOrderBy}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <!--        Page Numbers       -->
+                    <li class="page-item"
+                        th:each="pageNumber : ${numbers}">
+                        <a class="page-link"
+                           th:classappend="${pageNumber} == ${currentPage} ? active : ''"
+                           th:text="${pageNumber} + 1"
+                           th:href="'?page=' + ${pageNumber} + '&size=' + ${documentsList.size} + '&orderBy=' + ${currentOrderBy}">
+                        </a>
+                    </li>
+                    <!--      Next page       -->
+                    <li class="page-item">
+                        <a class="page-link"
+                           th:if="${currentPage} < ${documentsList.totalPages - 1}"
+                           th:href="'?page=' + ${currentPage + 1} + '&size=' + ${documentsList.size} + '&orderBy=' + ${currentOrderBy}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!--        Add button       -->
+
+    <!--        <sec:authorize url="/document/add/">-->
+                <div class="position-relative">
+                    <div class="position-absolute bottom-0 end-0" >
+                        <a href="/web/document/add/" class="btn btn-outline-primary float-right" role="button">
+                            Add document</a>
+                    </div>
+                </div>
+    <!--        </sec:authorize>-->
+        </div>
+    </div>
+
+    <div th:replace="fragments/footer :: footer"> </div>
+
+</body>
+</html>
