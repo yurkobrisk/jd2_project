@@ -86,13 +86,15 @@
                             <input type="text" th:field="*{providerIndex}" class="form-control" placeholder="Write provider`s index"/>
                         </div>
                     </div>
-                    <div>
-                        <input type="submit" value="Save" />
-                        <input type="reset" value="Reset" />
+                </div>
+                <div class="d-flex justify-content-end" id="d-flex-btnSubmitReset">
+                    <div class="btn-group">
+                        <input type="submit" value="Save" id="btnSubmit" class="btn"/>
+                        <input type="reset" value="Reset" id="btnReset" class="btn"/>
                     </div>
                 </div>
             </fieldset>
-            <a class="btn" href="/web/document/all/" role="button">Back</a>
+            <a id="btnBack" class="btn" href="/web/document/all/" role="button">Back</a>
         </form>
     </div>
 

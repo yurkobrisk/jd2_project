@@ -7,31 +7,128 @@ html {
 
 body {
   font-family: 'Open Sans', sans-serif;
-  background: none;}
+  background: none;
+	}
 
-h1 {
-	font-weight: bold;
+#titleDoc {
+	margin: 150px 0 100px 0;
+}
+
+h2 {
+	margin-bottom: 25px;
+}
+
+h6 {
+	margin-top: 0.5rem;
+	margin-bottom: 0.5rem;
 }
 
 #mainDiv {
+	margin-top: 4%;
 	text-align: center;
-	margin-top: 10%;}
+	width: 75%;}
 
-#btnNext {
-	margin-top: 10%;	
-	margin-bottom: 50px;
-	padding: 10px 20px; 
+#docsDB {
+	margin-top: 40px;
+}
+
+#d-inline-flex {
+	margin: 15px 0;}
+
+#totalDocs, #dropdownDocsPerPage, #dropdownOrderBy {
+	margin-right: 30px;
+}
+
+#docsPerPage, #orderBy {
+	margin-left: 30px;
+}
+
+#btnNext, #btnAdd {
 	background-color: black; 
-	border: 0px; 
-	color: #B3B3B3;
-	font-weight: bold; } 
+	border: 1px solid black; 
+	color: white;}
 
-#btnNext:hover { 
-	background-color: #B3B3B3; 
-	border: 1px solid black;
+#btnBack {
+	background-color: black; 
+	border: 1px solid black; 
+	color: white;
+	margin-bottom: 50px;}
+
+#btnDropDown1, #btnDropDown2, #btnSubmit, #btnReset {
+	background-color: white; 
+	border: 1px solid black; 
+	color: black;}
+
+#btnNext:hover, #btnAdd:hover,
+#btnDropDown1:hover, #btnDropDown2:hover, 
+#btnSubmit:hover, #btnReset:hover, #btnBack:hover { 
+	background-color: #ff5000; 
+	border: 1px solid #ff5000;
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.15); 
-	color: black; }
+	color: white;}
+
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px auto;
+    font-size: 0.9em;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;}
+
+.styled-table thead tr {
+    background-color: black;
+    color: #ffffff;
+    text-align: left;}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+    text-align: left;}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid black;}
+
+
+.far {
+	font-size: 24px;
+	margin: 0 10px;
+	color: black;}
+
+.far:hover {
+	color: #ff5000;}
+
+.page-item.active .page-link {
+	background-color: black;
+	border: 0px;
+}
+
+.page-link, .page-link:hover {
+	color: black;}
 
 a.active {
-	pointer-events: none;
+	pointer-events: none;}
+
+#addBtnDiv {
+	margin-right: 50px;
+	margin-bottom: 50px;
+}
+
+.col {
+	margin: 0 25px;
+}
+
+.input-group-text {
+	color: white;
+	background-color: black;
+}
+
+#d-flex-btnSubmitReset {
+	margin-top: 50px;
 }
