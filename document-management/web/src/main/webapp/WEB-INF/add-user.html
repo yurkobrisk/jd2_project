@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"></head>
+<body>
+    <div class="container" id="userDiv">
+
+        <h2 class="text-center">Please add new user:</h2>
+
+        <!--/*@thymesVar id="userDto" type="it.academy.dto.UserDto"*/-->
+        <form action="#" th:action="@{/users}" th:object="${userDto}" method="post">
+
+<!--            <div class="row">-->
+                <div class="col" id="divUserName">
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text span-add-user">User name</span>
+                        <input type="text" class="form-control" th:field="*{userName}"/>
+                    </div>
+                </div>
+                <div class="col" id="divPassword">
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text span-add-user">Password</span>
+                        <input type="text" class="form-control" th:field="*{password}"/>
+                    </div>
+                </div>
+<!--            </div>-->
+
+            <div class="container" id="divUserType">
+                <label id="role">Role: </label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" checked="checked"
+                           id="manager" value="ROLE_MANAGER" th:field="*{authority}">
+                    <label class="form-check-label" for="manager">MANAGER</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                           id="viewer" value="ROLE_VIEWER" th:field="*{authority}">
+                    <label class="form-check-label" for="viewer">VIEWER</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                           id="admin" value="ROLE_ADMIN" th:field="*{authority}">
+                    <label class="form-check-label" for="admin">ADMIN</label>
+                </div>
+            </div>
+            <div class="container" id="divCheckboxEnable">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="enabled"
+                           id="checkEnabled" th:checked="*{enabled}">
+                    <label class="form-check-label" for="checkEnabled">
+                        Enabled
+                    </label>
+                </div>
+            </div>
+
+            <div class="container">
+                <!--/*@thymesVar id="fieldError" type="model"*/-->
+                <div th:if="${fieldError}" class="alert alert-danger" role="alert">
+                    Please make sure all fields are filled in correctly. Check fields
+                </div>
+            </div>
+
+            <div class="container" id="divBtnSaveUser">
+                <input type="submit" value="Save" id="btnSubmit" class="btn"/>
+                <div class="btn-group" id="divBtnResetBack">
+                    <input type="reset" value="Reset" id="btnReset" class="btn"/>
+                    <a id="btnBack" class="btn" href="/web" role="button">Back</a>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <div th:replace="fragments/footer :: footer"> </div>
+
+</body>
+</html>

@@ -7,7 +7,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 // Объект "Документ" из себя представляет описание документа - можно добавить
 //произвольных атрибутов - дата создания, статус, автор документа, файл документа
@@ -18,7 +17,7 @@ import java.util.Date;
 @Getter
 @ToString
 @NoArgsConstructor
-@Table(name = "T_DOCUMENT")
+@Table(name = "T_DOCUMENTS")
 public class Document implements Serializable {
 
     @Id
@@ -29,11 +28,11 @@ public class Document implements Serializable {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "C_ID")
-    private ClientDocument clientDocument;
+    private Client client;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "P_ID")
-    private ProviderDocument providerDocument;
+    private Provider provider;
 
     @Column(name = "CREATION_DATE")
     private String creationDate;
@@ -42,8 +41,8 @@ public class Document implements Serializable {
     private String completionDate;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "USER_ID")
-    private User user;
+    @JoinColumn(name = "PERSON_ID")
+    private Person person;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "DOCUMENT_STATUS")

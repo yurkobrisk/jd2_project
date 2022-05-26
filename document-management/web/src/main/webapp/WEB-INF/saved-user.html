@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"></head>
+<body>
+<div class="container" id="mainDiv">
+
+    <h2 class="text-center" th:text="'User with name: ' + ${name} + ', saved.'">User name</h2>
+
+    <a href="/web" id="btnNext" class="btn" role="button">Ok</a>
+
+</div>
+
+<div th:replace="fragments/footer :: footer"> </div>
+
+</body>
+</html>

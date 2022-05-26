@@ -12,28 +12,28 @@ import java.util.List;
 @Getter
 @ToString
 @NoArgsConstructor
-@Table(name = "T_CLIENT_DOCUMENT")
-public class ClientDocument implements Serializable {
+@Table(name = "T_CLIENTS")
+public class Client implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid-generator")
     @GenericGenerator(name = "uuid-generator", strategy = "uuid2")
     @Column(name = "C_ID")
-    public String clientId;
+    public String id;
 
     @Column(name = "C_NAME")
-    private String clientName;
+    private String name;
 
     @Column(name = "C_SURNAME")
-    private String clientSurname;
+    private String surname;
 
     @Column(name = "C_PASSPORTNUM")
-    private String clientPassportNumber;
+    private String passportNumber;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "A_ID")
-    private Address clientAddress;
+    private Address address;
 
-    @OneToMany(mappedBy = "clientDocument")
-    private List<Document> clientDocuments;
+    @OneToMany(mappedBy = "client")
+    private List<Document> documents;
 }

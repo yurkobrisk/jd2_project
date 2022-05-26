@@ -11,7 +11,7 @@ body {
 	}
 
 #titleDoc {
-	margin: 150px 0 100px 0;
+	margin-bottom: 100px;
 }
 
 h2 {
@@ -28,9 +28,10 @@ h6 {
 	text-align: center;
 	width: 75%;}
 
-#docsDB {
-	margin-top: 40px;
-}
+#userDiv {
+	margin-top: 4%;
+	text-align: center;
+	width: 60%;}
 
 #d-inline-flex {
 	margin: 15px 0;}
@@ -48,18 +49,23 @@ h6 {
 	border: 1px solid black; 
 	color: white;}
 
-#btnBack {
-	background-color: black; 
-	border: 1px solid black; 
-	color: white;
-	margin-bottom: 50px;}
-
-#btnDropDown1, #btnDropDown2, #btnSubmit, #btnReset {
+#btnBack, #btnReset {
 	background-color: white; 
 	border: 1px solid black; 
 	color: black;}
 
-#btnNext:hover, #btnAdd:hover,
+#btnDropDown1, #btnDropDown2 {
+	background-color: white; 
+	border: 1px solid black; 
+	color: black;}
+
+#btnSubmit {
+	background-color: black; 
+	border: 1px solid black; 
+	color: white;
+	float: left;}
+
+#btnNext:hover, #btnAdd:hover, 
 #btnDropDown1:hover, #btnDropDown2:hover, 
 #btnSubmit:hover, #btnReset:hover, #btnBack:hover { 
 	background-color: #ff5000; 
@@ -67,10 +73,17 @@ h6 {
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.15); 
 	color: white;}
 
+#btnLogout:hover, #btnAddUser:hover {
+	border: 1px solid #ff5000;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+	color: black;
+	font-weight: bold;}
+
 .styled-table {
     border-collapse: collapse;
     margin: 25px auto;
     font-size: 0.9em;
+    width: 80%;
     min-width: 400px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     border-radius: 5px 5px 0 0;
@@ -116,9 +129,8 @@ a.active {
 	pointer-events: none;}
 
 #addBtnDiv {
-	margin-right: 50px;
-	margin-bottom: 50px;
-}
+    margin-left: 9%;
+    text-align: left;}
 
 .col {
 	margin: 0 25px;
@@ -131,4 +143,35 @@ a.active {
 
 #d-flex-btnSubmitReset {
 	margin-top: 50px;
+}
+
+.form-check-input:checked {
+	background-color: black;
+	border-color: black;
+}
+
+#divUserName, #divPassword, #divUserType, #divBtnSaveUser {
+	margin: 25px 25px;
+	width: 50%;
+	display: inline-block;
+}
+
+#divCheckboxEnable {
+	margin-bottom: 25px;
+	text-align: left;
+	width: 50%;
+	display: inline-block;
+}
+
+.span-add-user {
+	display: block;
+	width: 100px;
+}
+
+#role {
+	float: left;
+}
+
+#divBtnResetBack {
+	float: right;
 }

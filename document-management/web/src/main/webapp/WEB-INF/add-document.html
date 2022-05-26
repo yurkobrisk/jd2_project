@@ -3,23 +3,36 @@
 <head th:replace="fragments/header :: header"></head>
 <body>
     <div class="container" id="mainDiv">
+        <div class="d-flex justify-content-end">
+            <div id="logoutBtnDiv" class="p-2">
+                <a href="/web/logout" class="btn" id="btnLogout" role="button">Logout</a>
+            </div>
+        </div>
 
         <h2 class="text-center">Please add new document:</h2>
 
-        <form action="#" th:action="@{/document/add/}" th:object="${documentDto}" method="post">
+        <!--/*@thymesVar id="documentDto" type="it.academy.dto.DocumentDto"*/-->
+        <!--/*@thymesVar id="viewMode" type="view"*/-->
+        <form action="#" th:action="@{/documents/add}" th:object="${documentDto}" method="post">
             <input type="hidden" th:field="*{documentId}"/>
+            <div class="container">
+                <!--/*@thymesVar id="fieldError" type="model"*/-->
+                <div th:if="${fieldError}" class="alert alert-danger" role="alert">
+                    Please make sure all fields are filled in correctly. Check fields marked *
+                </div>
+            </div>
             <fieldset th:disabled="${viewMode == true}">
                 <div class="row">
                     <div class="col">
                         <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text">Creation date:</span>
-                            <input type="text" th:field="*{creationDate}" class="form-control" placeholder="YYYY-MM-DD"/>
+                            <span class="input-group-text">Creation date *</span>
+                            <input type="date" th:field="*{creationDate}" class="form-control" placeholder="YYYY-MM-DD"/>
                         </div>
                     </div>
                     <div class="col">
                         <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text">Completion date:</span>
-                            <input type="text" th:field="*{completionDate}" class="form-control" placeholder="YYYY-MM-DD"/>
+                            <span class="input-group-text">Completion date *</span>
+                            <input type="date" th:field="*{completionDate}" class="form-control" placeholder="YYYY-MM-DD"/>
                         </div>
                     </div>
                 </div>
@@ -27,63 +40,63 @@
                     <div class="col">
                         <h3>Client:</h3>
                         <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text">Client name:</span>
+                            <span class="input-group-text">Client name *</span>
                             <input type="text" th:field="*{clientName}" class="form-control" placeholder="Write client`s name"/>
                         </div>
                         <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text">Client surname:</span>
+                            <span class="input-group-text">Client surname *</span>
                             <input type="text" th:field="*{clientSurname}" class="form-control" placeholder="Write client`s surname"/>
                         </div>
                         <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text">Passport number:</span>
+                            <span class="input-group-text">Passport number </span>
                             <input type="text" th:field="*{clientPassportNumber}" class="form-control" placeholder="Write client`s passport number"/>
                         </div>
                         <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text">Country:</span>
+                            <span class="input-group-text">Country </span>
                             <input type="text" th:field="*{clientCountry}" class="form-control" placeholder="Write client`s country"/>
                         </div>
                         <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text">City:</span>
+                            <span class="input-group-text">City </span>
                             <input type="text" th:field="*{clientCity}" class="form-control" placeholder="Write client`s city"/>
                         </div>
                         <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text">Street:</span>
+                            <span class="input-group-text">Street </span>
                             <input type="text" th:field="*{clientStreet}" class="form-control" placeholder="Write client`s street"/>
                         </div>
                         <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text">Index:</span>
-                            <input type="text" th:field="*{clientIndex}" class="form-control" placeholder="Write client`s index"/>
+                            <span class="input-group-text">Index </span>
+                            <input type="number" th:field="*{clientIndex}" class="form-control" placeholder="Write client`s index" min="0"/>
                         </div>
                     </div>
                     <div class="col">
                         <h3>Provider:</h3>
                         <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text">Provider name:</span>
+                            <span class="input-group-text">Provider name *</span>
                             <input type="text" th:field="*{providerName}" class="form-control" placeholder="Write provider`s name"/>
                         </div>
                         <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text">Provider surname:</span>
+                            <span class="input-group-text">Provider surname *</span>
                             <input type="text" th:field="*{providerSurname}" class="form-control" placeholder="Write provider`s surname"/>
                         </div>
                         <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text">Passport number:</span>
+                            <span class="input-group-text">Passport number</span>
                             <input type="text" th:field="*{providerPassportNumber}" class="form-control" placeholder="Write provider`s passport number"/>
                         </div>
                         <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text">Country:</span>
+                            <span class="input-group-text">Country</span>
                             <input type="text" th:field="*{providerCountry}" class="form-control" placeholder="Write provider`s country"/>
                         </div>
                         <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text">City:</span>
+                            <span class="input-group-text">City</span>
                             <input type="text" th:field="*{providerCity}" class="form-control" placeholder="Write provider`s city"/>
                         </div>
                         <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text">Street:</span>
+                            <span class="input-group-text">Street</span>
                             <input type="text" th:field="*{providerStreet}" class="form-control" placeholder="Write provider`s street"/>
                         </div>
                         <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text">Index:</span>
-                            <input type="text" th:field="*{providerIndex}" class="form-control" placeholder="Write provider`s index"/>
+                            <span class="input-group-text">Index</span>
+                            <input type="number" th:field="*{providerIndex}" class="form-control" placeholder="Write provider`s index" min="0"/>
                         </div>
                     </div>
                 </div>
@@ -94,7 +107,7 @@
                     </div>
                 </div>
             </fieldset>
-            <a id="btnBack" class="btn" href="/web/document/all/" role="button">Back</a>
+            <a id="btnBack" class="btn" href="/web/documents" role="button">Back</a>
         </form>
     </div>
 

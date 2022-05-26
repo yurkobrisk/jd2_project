@@ -21,7 +21,7 @@ public class HomeController {
 
     @PostMapping("/")
     public String checkLogin(){
-        return "redirect:/document/all/";
+        return "redirect:/documents";
     }
 
 }

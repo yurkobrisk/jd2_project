@@ -1,38 +1,33 @@
 package it.academy.model;
 
-import it.academy.model.enums.UserType;
-import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Setter
 @Getter
+@Setter
 @ToString
 @NoArgsConstructor
-@Table(name = "T_USER_DOCUMENT")
+@Table(name = "USERS")
 public class User implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "uuid-generator")
-    @GenericGenerator(name = "uuid-generator", strategy = "uuid2")
-    @Column(name = "USER_ID")
-    private String userId;
-
-    @Column(name = "USER_NAME")
+    @Column(name = "USERNAME", columnDefinition = "varchar(50)", unique = true)
     private String userName;
 
-    @Column(name = "PASSWORD")
+    @Column(name = "PASSWORD", columnDefinition = "varchar(100)")
     private String password;
 
-    @Column(name = "USER_TYPE")
-    private UserType userType;
+    @Column(name = "ENABLED", columnDefinition = "integer default 1")
+    private Integer enabled;
 
-    @OneToMany(mappedBy = "user")
-    private List<Document> userDocuments;
-
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "AUTH_ID")
+    private Authority authority;
 }
-

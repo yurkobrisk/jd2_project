@@ -1,14 +1,12 @@
 package it.academy.service;
 
-import it.academy.dto.DocumentDto;
-import it.academy.model.Address;
-import it.academy.model.ClientDocument;
 import it.academy.model.Document;
-import it.academy.model.ProviderDocument;
 import it.academy.repository.DocumentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +25,11 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public List<Document> readAllDocuments() {
         return documentRepository.findAll();
+    }
+
+    @Override
+    public Page<Document> readAllDocuments(Pageable pageable) {
+        return documentRepository.findAll(pageable);
     }
 
     @Override

@@ -12,29 +12,29 @@ import java.util.List;
 @Getter
 @ToString
 @NoArgsConstructor
-@Table(name = "T_PROVIDER_DOCUMENT")
-public class ProviderDocument implements Serializable {
+@Table(name = "T_PROVIDERS")
+public class Provider implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid-generator")
     @GenericGenerator(name = "uuid-generator", strategy = "uuid2")
     @Column(name = "P_ID")
-    public String providerId;
+    public String id;
 
     @Column(name = "P_NAME")
-    private String providerName;
+    private String name;
 
     @Column(name = "P_SURNAME")
-    private String providerSurname;
+    private String surname;
 
     @Column(name = "P_PASSPORTNUM")
-    private String providerPassportNumber;
+    private String passportNumber;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "A_ID")
-    private Address providerAddress;
+    private Address address;
 
-    @OneToMany(mappedBy = "providerDocument")
-    private List<Document> providerDocuments;
+    @OneToMany(mappedBy = "provider")
+    private List<Document> documents;
 }
 

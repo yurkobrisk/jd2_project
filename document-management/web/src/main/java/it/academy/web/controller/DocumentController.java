@@ -24,28 +24,29 @@ public class DocumentController {
     @Autowired
     MapDocumentService mapDocumentService;
 
-    @GetMapping("/document/add/")
+    @GetMapping("/documents/add")
     public String addDocument(Model model){
         model.addAttribute("documentDto", new DocumentDto());
         return "add-document";
     }
 
-    @PostMapping("/document/add/")
+    @PostMapping("/documents/add")
     public String addDocument(
             @Valid @ModelAttribute("documentDto") DocumentDto documentDto,
-            BindingResult bindingResult
+            BindingResult bindingResult,
+            Model model
     ){
         // Check form for errors. If errors present fill field for recommendations.
         if (bindingResult.hasErrors()) {
-            System.out.println("---------------- Method addDocument has error: " +
-                    bindingResult.hasErrors());
+            model.addAttribute("fieldError", true);
             return "add-document";
         }
+        model.addAttribute("fieldError", false);
         mapDocumentService.saveDocument(documentDto);
-        return "redirect:/document/all/";
+        return "redirect:/documents";
     }
 
-    @GetMapping("/document/update/")
+    @GetMapping("/documents/edit")
     public String updateDocument(
             @RequestParam("docId") String id,
             @RequestParam("view") boolean view,
@@ -54,16 +55,26 @@ public class DocumentController {
         DocumentDto documentDto = mapDocumentService.getDocument(id);
         model.addAttribute("documentDto", documentDto);
         model.addAttribute("viewMode", view);
+
+        if (!view && (documentDto.getCreationDate().equals("") ||
+                documentDto.getCompletionDate().equals("") ||
+                documentDto.getClientName().equals("") ||
+                documentDto.getClientSurname().equals("") ||
+                documentDto.getProviderName().equals("") ||
+                documentDto.getProviderSurname().equals(""))) {
+            model.addAttribute("fieldError", true);
+        }
         return "add-document";
     }
 
-    @GetMapping("/document/delete/")
-    public String deleteDocument(@RequestParam("docId") String id){
+    @GetMapping("/documents/delete")
+    public String deleteDocument(
+            @RequestParam("docId") String id){
         mapDocumentService.deleteDocument(id);
-        return "redirect:/document/all/";
+        return "redirect:/documents";
     }
 
-    @GetMapping("/document/all/")
+    @GetMapping("/documents")
     public String listDocuments(
             Model model,
             @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
@@ -73,7 +84,7 @@ public class DocumentController {
         Page<DocumentDto> pageDtos = mapDocumentService
                 .findAll(page, size, "ASC", orderBy);
         System.out.println("___________ size = " + size + ", pageDtos.getTotalElements() = " + pageDtos.getTotalElements());
-        if ((size * (page + 1)) > pageDtos.getTotalElements()) {
+        if (((long) size * (page + 1)) > pageDtos.getTotalElements() && pageDtos.getTotalElements() > 0) {
             page = pageDtos.getTotalPages() - 1;
             pageDtos = mapDocumentService.findAll(page, size, "ASC", orderBy);
         }

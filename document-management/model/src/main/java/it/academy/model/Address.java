@@ -11,14 +11,14 @@ import java.io.Serializable;
 @Getter
 @ToString
 @NoArgsConstructor
-@Table(name = "T_ADDRESS")
+@Table(name = "T_ADDRESSES")
 public class Address implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid-generator")
     @GenericGenerator(name = "uuid-generator", strategy = "uuid2")
     @Column(name = "A_ID")
-    private String addresId;
+    private String id;
 
     @Column(name = "A_COUNTRY")
     private String country;

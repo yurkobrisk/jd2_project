@@ -13,7 +13,7 @@ public class Mapper extends ModelMapper {
                 .setMatchingStrategy(MatchingStrategies.STRICT)
                 .setAmbiguityIgnored(true)
                 .setFieldMatchingEnabled(true)
-                .setSkipNullEnabled(true)
+                .setSkipNullEnabled(false)
                 .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE);
     }
 }

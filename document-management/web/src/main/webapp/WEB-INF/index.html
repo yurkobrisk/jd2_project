@@ -3,10 +3,16 @@
 <head th:replace="fragments/header :: header"></head>
 <body>
     <div class="container" id="mainDiv">
+        <div class="d-flex justify-content-end">
+            <div class="p-2">
+                <a href="/web/users" class="btn" id="btnAddUser" role="button">Add user</a>
+            </div>
+        </div>
     
         <h1 id="titleDoc">Document`s management system</h1>
 
-        <a href="/web/document/all/" id="btnNext" class="btn" role="button">Next</a>
+        <a href="/web/documents" id="btnNext" class="btn" role="button">Next</a>
+
     </div>
 
     <div th:replace="fragments/footer :: footer"> </div>

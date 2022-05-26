@@ -10,7 +10,9 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class DocumentDto {
 
+    @NotBlank(message = "Creation Date is required field")
     private String creationDate;
+    @NotBlank(message = "Completion Date is required field")
     private String completionDate;
 
     private String documentId;

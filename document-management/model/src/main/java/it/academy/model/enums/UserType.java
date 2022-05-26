@@ -1,5 +1,7 @@
 package it.academy.model.enums;
 
 public enum UserType {
-    USER, ADMINISTRATOR
+    ROLE_MANAGER,
+    ROLE_VIEWER,
+    ROLE_ADMIN
 }

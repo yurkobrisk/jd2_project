@@ -2,7 +2,23 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"></head>
 <body>
+
+    <!--/*@thymesVar id="documentsList" type="org.springframework.data.domain.Page"*/-->
+    <!--/*@thymesVar id="numbers" type="java.lang.invoke.VarHandleInts.Array"*/-->
+    <!--/*@thymesVar id="count" type="java.lang.invoke.VarHandleInts.Array"*/-->
+    <!--/*@thymesVar id="orderByParam" type="java.lang.invoke.VarHandleObjects.Array"*/-->
+    <!--/*@thymesVar id="currentPage" type="page"*/-->
+    <!--/*@thymesVar id="currentSize" type="size"*/-->
+    <!--/*@thymesVar id="currentOrderBy" type="orderBy"*/-->
+    <!--/*@thymesVar id="document" type="it.academy.dto.DocumentDto"*/-->
+
     <div class="container" id="mainDiv">
+        <div class="d-flex justify-content-end">
+            <div id="logoutBtnDiv" class="p-2">
+                <a href="/web/logout" class="btn" id="btnLogout" role="button">Logout</a>
+            </div>
+        </div>
+
         <h1 id="docsDB">Documents in database: </h1>
 
         <!--        Ordering row with - labels 12 columns       -->
@@ -71,11 +87,11 @@
                     <td th:text="${document.providerSurname}"></td>
                     <td th:text="${document.completionDate}"></td>
                     <td th:with="docId=${document.documentId}">
-                        <a th:href="'/web/document/update/?docId=' + ${docId} + '&view=true'">
+                        <a th:href="'/web/documents/edit?docId=' + ${docId} + '&view=true'">
                             <i class="far fa-file-alt"></i></a>
-                        <a th:href="'/web/document/update/?docId=' + ${docId} + '&view=false'">
+                        <a th:href="'/web/documents/edit?docId=' + ${docId} + '&view=false'">
                             <i class="far fa-edit"></i></a>
-                        <a th:href="'/web/document/delete/?docId=' + ${docId}">
+                        <a th:href="'/web/documents/delete?docId=' + ${docId}">
                             <i class="far fa-trash-alt"></i></a>
                     </td>
                 </tr>
@@ -98,11 +114,11 @@
                         <!--        Page Numbers       -->
                         <li class="page-item"
                             th:each="pageNumber : ${numbers}"
-                            th:classappend="${pageNumber} == ${currentPage} ? active : ''">
-                            <a class="page-link"
-                               th:classappend="${pageNumber} == ${currentPage} ? active : ''"
-                               th:text="${pageNumber} + 1"
-                               th:href="'?page=' + ${pageNumber} + '&size=' + ${documentsList.size} + '&orderBy=' + ${currentOrderBy}">
+                                th:classappend="${pageNumber} == ${currentPage} ? active : ''">
+                                <a class="page-link"
+                                   th:classappend="${pageNumber} == ${currentPage} ? active : ''"
+                                   th:text="${pageNumber} + 1"
+                                   th:href="'?page=' + ${pageNumber} + '&size=' + ${documentsList.size} + '&orderBy=' + ${currentOrderBy}">
                             </a>
                         </li>
                         <!--      Next page       -->
@@ -117,11 +133,11 @@
                 </nav>
             </div>
         </div>
-        <div class="d-flex justify-content-end">
+        <div class="d-flex">
             <!--        Add button       -->
     <!--        <sec:authorize url="/document/add/">-->
-            <div id="addBtnDiv" class="p-2">
-                <a href="/web/document/add/" class="btn" id="btnAdd" role="button">Add document</a>
+            <div id="addBtnDiv" class="container">
+                <a href="/web/documents/add" class="btn" id="btnAdd" role="button">Add document</a>
             </div>
         </div>
     <!--        </sec:authorize>-->

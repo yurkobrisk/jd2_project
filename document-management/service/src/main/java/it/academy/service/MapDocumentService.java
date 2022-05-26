@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class MapDocumentService {
 
     @Autowired
-    private DocumentRepository documentRepository;
+    private DocumentService documentService;
 
     @Autowired
     private Mapper modelMapper;
@@ -30,24 +30,24 @@ public class MapDocumentService {
     private DocumentMap documentMap;
 
     public List<DocumentDto> getAllDocuments(){
-        return ((List<Document>) documentRepository
-                .findAll())
+        return (documentService
+                .readAllDocuments())
                 .stream()
                 .map(this::convertDocumentToDto)
                 .collect(Collectors.toList());
     }
 
     public Document saveDocument(DocumentDto documentDto){
-        return documentRepository
-                .saveAndFlush(convertDtoToDocument(documentDto));
+        return documentService
+                .saveDocument(convertDtoToDocument(documentDto));
     }
 
     public DocumentDto getDocument(String id) {
-        return convertDocumentToDto(documentRepository.getOne(id));
+        return convertDocumentToDto(documentService.readDocument(id));
     }
 
     public void deleteDocument(String id) {
-        documentRepository.deleteById(id);
+        documentService.deleteDocument(id);
     }
 
     private DocumentDto convertDocumentToDto(Document document) {
@@ -59,7 +59,6 @@ public class MapDocumentService {
     }
 
     private Document convertDtoToDocument(DocumentDto documentDto){
-//        modelMapper = new Mapper();
         TypeMap<DocumentDto, Document> typeMap =
                 modelMapper.getTypeMap(DocumentDto.class, Document.class);
         if (typeMap == null) {
@@ -76,19 +75,19 @@ public class MapDocumentService {
                 orderBy = "creationDate";
                 break;
             case "Client Surname  A-Z":
-                orderBy = "clientDocument.clientSurname";
+                orderBy = "client.surname";
                 direction = "ASC";
                 break;
             case "Client Surname  Z-A":
-                orderBy = "clientDocument.clientSurname";
+                orderBy = "client.surname";
                 direction = "DESC";
                 break;
             case "Provider Surname  A-Z":
-                orderBy = "providerDocument.providerSurname";
+                orderBy = "provider.surname";
                 direction = "ASC";
                 break;
             case "Provider Surname  Z-A":
-                orderBy = "providerDocument.providerSurname";
+                orderBy = "provider.surname";
                 direction = "DESC";
                 break;
             default:
@@ -99,7 +98,7 @@ public class MapDocumentService {
         PageRequest pageRequest =
                 PageRequest.of(page, size, Sort.Direction.valueOf(direction), orderBy);
 
-        return mapDocumentsPage(documentRepository.findAll(pageRequest));
+        return mapDocumentsPage(documentService.readAllDocuments(pageRequest));
     }
 
     private List<DocumentDto> mapDocuments(Collection<Document> documents){
