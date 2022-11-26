@@ -15,6 +15,10 @@
         <!--/*@thymesVar id="viewMode" type="view"*/-->
         <form action="#" th:action="@{/documents/add}" th:object="${documentDto}" method="post">
             <input type="hidden" th:field="*{documentId}"/>
+            <input type="hidden" th:field="*{clientId}"/>
+            <input type="hidden" th:field="*{providerId}"/>
+            <input type="hidden" th:field="*{clientAddressId}"/>
+            <input type="hidden" th:field="*{providerAddressId}"/>
             <div class="container">
                 <!--/*@thymesVar id="fieldError" type="model"*/-->
                 <div th:if="${fieldError}" class="alert alert-danger" role="alert">

@@ -16,6 +16,8 @@ public class DocumentDto {
     private String completionDate;
 
     private String documentId;
+
+    private String clientId;
     @Size(min = 2, message = "Client name must be min 2 symbols")
     private String clientName;
     @NotBlank(message = "Surname is required field")
@@ -25,7 +27,9 @@ public class DocumentDto {
     private String clientCity;
     private String clientStreet;
     private String clientIndex;
+    private String clientAddressId;
 
+    private String providerId;
     @Size(min = 2, message = "Provider name must be min 2 symbols")
     private String providerName;
     @NotBlank(message = "Surname is required field")
@@ -35,4 +39,5 @@ public class DocumentDto {
     private String providerCity;
     private String providerStreet;
     private String providerIndex;
+    private String providerAddressId;
 }

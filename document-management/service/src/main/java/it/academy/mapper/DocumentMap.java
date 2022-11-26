@@ -13,16 +13,22 @@ public class DocumentMap extends PropertyMap<DocumentDto, Document> {
         map().setDocumentId(source.getDocumentId());
         map().setCreationDate(source.getCreationDate());
         map().setCompletionDate(source.getCompletionDate());
+
+        map().getClient().setId(source.getClientId());
         map().getClient().setName(source.getClientName());
         map().getClient().setSurname(source.getClientSurname());
         map().getClient().setPassportNumber(source.getClientPassportNumber());
+        map().getClient().getAddress().setId(source.getClientAddressId());
         map().getClient().getAddress().setCountry(source.getClientCountry());
         map().getClient().getAddress().setCity(source.getClientCity());
         map().getClient().getAddress().setStreet(source.getClientStreet());
         map().getClient().getAddress().setIndex(source.getClientIndex());
+
+        map().getProvider().setId(source.getProviderId());
         map().getProvider().setName(source.getProviderName());
         map().getProvider().setSurname(source.getProviderSurname());
         map().getProvider().setPassportNumber(source.getProviderPassportNumber());
+        map().getProvider().getAddress().setId(source.getProviderAddressId());
         map().getProvider().getAddress().setCountry(source.getProviderCountry());
         map().getProvider().getAddress().setCity(source.getProviderCity());
         map().getProvider().getAddress().setStreet(source.getProviderStreet());
