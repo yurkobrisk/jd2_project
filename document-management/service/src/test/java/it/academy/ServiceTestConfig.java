@@ -4,9 +4,11 @@ import it.academy.mapper.DocumentMap;
 import it.academy.mapper.Mapper;
 import it.academy.mapper.UserMap;
 import it.academy.model.Document;
+import it.academy.model.User;
 import it.academy.repository.DocumentRepository;
 import it.academy.repository.UsersRepository;
 import it.academy.service.*;
+import org.mockito.Mockito;
 import org.springframework.context.annotation.*;
 
 import java.util.List;
@@ -48,6 +50,33 @@ public class ServiceTestConfig {
 
     @Bean
     @Primary
+    public UsersRepository usersRepository() {
+        User user = new User();
+        user.setUserName("Noname");
+        user.setEnabled(1);
+
+        final UsersRepository usersRepositoryMock = mock(UsersRepository.class);
+
+        when(usersRepositoryMock.findAll())
+                .thenReturn(List.of(user, user));
+
+        when(usersRepositoryMock.getOne("7"))
+                .thenReturn(user);
+
+        when(usersRepositoryMock.saveAndFlush(any(User.class)))
+                .thenReturn(user);
+
+        doAnswer(invocation -> {
+                    String id = invocation.getArgument(0);
+                    System.out.println("argument = " + id );
+                    return null;
+                }
+        ).when(usersRepositoryMock).deleteById("7");
+
+        return usersRepositoryMock;
+    }
+    @Bean
+    @Primary
     public Mapper mapper() {
         return mock(Mapper.class);
     }
@@ -66,12 +95,6 @@ public class ServiceTestConfig {
 
     @Bean
     @Primary
-    public UserService userService() {
-        return mock(UserService.class);
-    }
-
-    @Bean
-    @Primary
     public MapUsersService mapUsersService() {
         return mock(MapUsersService.class);
     }
@@ -82,9 +105,5 @@ public class ServiceTestConfig {
         return mock(UserMap.class);
     }
 
-    @Bean
-    @Primary
-    public UsersRepository usersRepository() {
-        return mock(UsersRepository.class);
-    }
+
 }

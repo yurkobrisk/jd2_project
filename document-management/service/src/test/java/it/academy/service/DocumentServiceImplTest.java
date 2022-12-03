@@ -6,7 +6,6 @@ import it.academy.repository.DocumentRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -18,7 +17,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@ContextConfiguration(classes = {ServiceTestConfig.class, DocumentServiceImpl.class})
+@ContextConfiguration(classes = {ServiceTestConfig.class, DocumentServiceImpl.class, UserServiceImpl.class})
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
 class DocumentServiceImplTest {
@@ -75,7 +74,7 @@ class DocumentServiceImplTest {
         Document newDocument = new Document();
         newDocument.setDocumentId("15");
         //When
-        Document document = documentService.saveDocument(newDocument);
+        Document document = documentService.updateDocument(newDocument);
         //Then
         assertThat(document).isNotNull();
         assertThat(document.getDocumentId()).isEqualTo("15");
@@ -85,7 +84,6 @@ class DocumentServiceImplTest {
     @DisplayName("it should runs delete method two times")
     void deleteDocument() {
         //Given
-        ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass(String.class);
         //When
         documentService.deleteDocument("15");
         documentService.deleteDocument("15");
