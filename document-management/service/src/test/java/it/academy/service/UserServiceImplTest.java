@@ -4,6 +4,7 @@ import it.academy.ServiceTestConfig;
 import it.academy.model.Document;
 import it.academy.model.User;
 import it.academy.repository.UsersRepository;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -36,6 +37,7 @@ class UserServiceImplTest {
     UsersRepository usersRepository;
 
     @Test
+    @DisplayName("it should return list of users with size 2")
     void readAllUsers() {
         //Given
         //When
@@ -50,6 +52,7 @@ class UserServiceImplTest {
     }
 
     @Test
+    @DisplayName("it should return user when read method runs")
     void readUser() {
         //Given
         //When
@@ -60,6 +63,7 @@ class UserServiceImplTest {
     }
 
     @Test
+    @DisplayName("it should return user when save method runs")
     void saveUser() {
         //Given
         User newUser = new User();
@@ -72,6 +76,7 @@ class UserServiceImplTest {
     }
 
     @Test
+    @DisplayName("it should return user when update method runs")
     void updateUser() {
         //Given
         User newUser = new User();
@@ -84,6 +89,7 @@ class UserServiceImplTest {
     }
 
     @Test
+    @DisplayName("it should runs delete method two times")
     void deleteUser() {
         //Given
         //When

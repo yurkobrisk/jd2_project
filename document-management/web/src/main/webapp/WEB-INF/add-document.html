@@ -5,7 +5,7 @@
     <div class="container" id="mainDiv">
         <div class="d-flex justify-content-end">
             <div id="logoutBtnDiv" class="p-2">
-                <a href="/web/logout" class="btn" id="btnLogout" role="button">Logout</a>
+                <a href="/docmanagement/logout" class="btn" id="btnLogout" role="button">Logout</a>
             </div>
         </div>
 
@@ -13,7 +13,7 @@
 
         <!--/*@thymesVar id="documentDto" type="it.academy.dto.DocumentDto"*/-->
         <!--/*@thymesVar id="viewMode" type="view"*/-->
-        <form action="#" th:action="@{/documents/add}" th:object="${documentDto}" method="post">
+        <form action="#" th:action="@{/documents/new}" th:object="${documentDto}" method="post">
             <input type="hidden" th:field="*{documentId}"/>
             <input type="hidden" th:field="*{clientId}"/>
             <input type="hidden" th:field="*{providerId}"/>
@@ -111,7 +111,7 @@
                     </div>
                 </div>
             </fieldset>
-            <a id="btnBack" class="btn" href="/web/documents" role="button">Back</a>
+            <a id="btnBack" class="btn" href="/docmanagement/documents" role="button">Back</a>
         </form>
     </div>
 

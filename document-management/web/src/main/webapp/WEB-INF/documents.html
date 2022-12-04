@@ -15,7 +15,7 @@
     <div class="container" id="mainDiv">
         <div class="d-flex justify-content-end">
             <div id="logoutBtnDiv" class="p-2">
-                <a href="/web/logout" class="btn" id="btnLogout" role="button">Logout</a>
+                <a href="/docmanagement/logout" class="btn" id="btnLogout" role="button">Logout</a>
             </div>
         </div>
 
@@ -87,11 +87,11 @@
                     <td th:text="${document.providerSurname}"></td>
                     <td th:text="${document.completionDate}"></td>
                     <td th:with="docId=${document.documentId}">
-                        <a th:href="'/web/documents/edit?docId=' + ${docId} + '&view=true'">
+                        <a th:href="'/docmanagement/documents/' + ${docId} + '/edit?view=true'">
                             <i class="far fa-file-alt"></i></a>
-                        <a th:href="'/web/documents/edit?docId=' + ${docId} + '&view=false'">
+                        <a th:href="'/docmanagement/documents/' + ${docId} + '/edit?view=false'">
                             <i class="far fa-edit"></i></a>
-                        <a th:href="'/web/documents/delete?docId=' + ${docId}">
+                        <a th:href="'/docmanagement/documents/' + ${docId}">
                             <i class="far fa-trash-alt"></i></a>
                     </td>
                 </tr>
@@ -137,7 +137,7 @@
             <!--        Add button       -->
     <!--        <sec:authorize url="/document/add/">-->
             <div id="addBtnDiv" class="container">
-                <a href="/web/documents/add" class="btn" id="btnAdd" role="button">Add document</a>
+                <a href="/docmanagement/documents/new" class="btn" id="btnAdd" role="button">New document</a>
             </div>
         </div>
     <!--        </sec:authorize>-->

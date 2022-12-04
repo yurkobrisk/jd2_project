@@ -24,13 +24,13 @@ public class DocumentController {
     @Autowired
     MapDocumentService mapDocumentService;
 
-    @GetMapping("/documents/add")
+    @GetMapping("/documents/new")
     public String addDocument(Model model){
         model.addAttribute("documentDto", new DocumentDto());
         return "add-document";
     }
 
-    @PostMapping("/documents/add")
+    @PostMapping("/documents/new")
     public String addDocument(
             @Valid @ModelAttribute("documentDto") DocumentDto documentDto,
             BindingResult bindingResult,
@@ -46,9 +46,9 @@ public class DocumentController {
         return "redirect:/documents";
     }
 
-    @GetMapping("/documents/edit")
+    @GetMapping("/documents/{id}/edit")
     public String updateDocument(
-            @RequestParam("docId") String id,
+            @PathVariable("id") String id,
             @RequestParam("view") boolean view,
             Model model
     ){
@@ -67,15 +67,15 @@ public class DocumentController {
         return "add-document";
     }
 
-    @GetMapping("/documents/delete")
+    @GetMapping("/documents/{id}")
     public String deleteDocument(
-            @RequestParam("docId") String id){
+            @PathVariable("id") String id){
         mapDocumentService.deleteDocument(id);
         return "redirect:/documents";
     }
 
     @GetMapping("/documents")
-    public String listDocuments(
+    public String readDocuments(
             Model model,
             @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
             @RequestParam(value = "size", required = false, defaultValue = "5") Integer size,

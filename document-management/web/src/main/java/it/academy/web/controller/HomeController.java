@@ -14,12 +14,12 @@ public class HomeController {
     private static final Logger log =
             LoggerFactory.getLogger(HomeController.class.getName());
 
-    @GetMapping("/")
+    @GetMapping("")
     public String home(){
         return "index";
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public String checkLogin(){
         return "redirect:/documents";
     }
